@@ -1,6 +1,6 @@
 view: order_items {
   sql_table_name: demo_db.order_items ;;
-  drill_fields: [id,order_id]
+  drill_fields: [id,test*]
 
   dimension: id {
     primary_key: yes
@@ -11,6 +11,7 @@ view: order_items {
     type: number
     # hidden: yes
     sql: ${TABLE}.inventory_item_id ;;
+    drill_fields: [order_id]
   }
   dimension: order_id {
     type: number
@@ -33,6 +34,10 @@ view: order_items {
   dimension: sale_price {
     type: number
     sql: ${TABLE}.sale_price ;;
+  }
+  set:  test{
+    fields: [id, phone]
+
   }
   measure: count {
     type: count

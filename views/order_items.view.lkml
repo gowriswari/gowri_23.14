@@ -11,7 +11,6 @@ view: order_items {
     type: number
     # hidden: yes
     sql: ${TABLE}.inventory_item_id ;;
-    drill_fields: [order_id]
   }
   dimension: order_id {
     type: number
@@ -36,11 +35,15 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
   set:  test{
-    fields: [id, phone]
-
+    fields: [order_id, phone]
+  }
+  measure: average_count {
+    type: average
+    sql: ${id} ;;
   }
   measure: count {
     type: count
-    drill_fields: [id, orders.id, inventory_items.id]
+    #drill_fields: [id, orders.id, inventory_items.id]
+    drill_fields: [inventory_item_id,test*]
   }
 }
